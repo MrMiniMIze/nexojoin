@@ -1,0 +1,81 @@
+menu:
+  root:
+    title: "&9Nexo Messages"
+    size: 27
+    items:
+      join:
+        slot: 11
+        material: "LIME_DYE"
+        name: "&aJoin Messages"
+        lore:
+          - "&7Select your join message."
+      leave:
+        slot: 15
+        material: "RED_DYE"
+        name: "&cLeave Messages"
+        lore:
+          - "&7Select your leave message."
+  selection:
+    size: 54
+    option-slots:
+      - 10
+      - 11
+      - 12
+      - 19
+      - 20
+      - 21
+      - 28
+      - 29
+      - 30
+      - 37
+      - 38
+      - 39
+    join:
+      title: "&aJoin Messages"
+    leave:
+      title: "&cLeave Messages"
+    back-item:
+      slot: 49
+      material: "ARROW"
+      name: "&cBack"
+      lore:
+        - "&7Click to return to the main menu."
+    empty:
+      slot: 22
+      material: "BARRIER"
+      name: "&cNo messages available"
+      lore:
+        - "&7You do not have access to any messages."
+defaults:
+  join: default
+  leave: default
+join-messages:
+  default:
+    display-name: "&aDefault Welcome"
+    message: "&7%player% joined the server."
+    material: "EMERALD"
+    lore:
+      - "&7The classic join announcement."
+    permission: ""
+  vip:
+    display-name: "&6VIP Arrival"
+    message: "&6%player% &7has arrived!"
+    material: "GOLD_INGOT"
+    lore:
+      - "&7Show off that you're special."
+    permission: "nexojoin.join.vip"
+leave-messages:
+  default:
+    display-name: "&aDefault Goodbye"
+    message: "&7%player% left the server."
+    material: "OAK_DOOR"
+    lore:
+      - "&7Simple and clean."
+    permission: ""
+  stealth:
+    display-name: "&8Silent Exit"
+    message: "&8%player% &7vanished into the shadows."
+    material: "ENDER_PEARL"
+    lore:
+      - "&7Perfect for sneaking away."
+    permission: "nexojoin.leave.stealth"

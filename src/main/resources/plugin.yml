@@ -1,0 +1,16 @@
+name: NexoJoin
+version: 1.0.0
+main: me.minimize.NexoJoin.NexoJoinPlugin
+api-version: 1.21
+commands:
+  joinmessages:
+    description: Open the join and leave message selector.
+    aliases: [messages]
+    permission: nexojoin.command
+permissions:
+  nexojoin.command:
+    description: Allows players to open the message selection menu.
+    default: true
+  nexojoin.reload:
+    description: Allows reloading the plugin configuration.
+    default: op
