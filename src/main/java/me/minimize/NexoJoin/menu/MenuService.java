@@ -105,7 +105,8 @@ public class MenuService {
 
         List<MessageOption> options = messageManager.getAvailable(player, type);
         String selectedId = playerDataManager.getSelectedMessageId(player.getUniqueId(), type);
-        boolean hasSelection = selectedId != null && options.stream().anyMatch(option -> option.getId().equalsIgnoreCase(selectedId));
+        String currentSelectedId = selectedId;
+        boolean hasSelection = currentSelectedId != null && options.stream().anyMatch(option -> option.getId().equalsIgnoreCase(currentSelectedId));
         if (!hasSelection) {
             if (!options.isEmpty()) {
                 MessageOption first = options.get(0);
