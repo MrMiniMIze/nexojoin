@@ -1,6 +1,7 @@
 package me.minimize.NexoJoin;
 
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.TextDecoration;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -8,11 +9,11 @@ import org.bukkit.entity.Player;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Locale;
 import java.util.Objects;
 
 public class MessageOption {
     private static final LegacyComponentSerializer LEGACY_SERIALIZER = LegacyComponentSerializer.legacyAmpersand();
+    private static final Component EMPTY_LINE = Component.empty().decoration(TextDecoration.ITALIC, false);
 
     private final String id;
     private final String displayName;
@@ -59,32 +60,26 @@ public class MessageOption {
     }
 
     public Component asDisplayComponent() {
-        return LEGACY_SERIALIZER.deserialize(displayName);
+        return deserializeNonItalic(displayName);
     }
 
     public List<Component> buildLore(boolean selected) {
         List<Component> components = new ArrayList<>();
         for (String line : lore) {
-            components.add(LEGACY_SERIALIZER.deserialize(line));
+            components.add(deserializeNonItalic(line));
         }
         if (!message.isEmpty()) {
             if (!components.isEmpty()) {
-                components.add(Component.empty());
+                components.add(EMPTY_LINE);
             }
-            components.add(LEGACY_SERIALIZER.deserialize("&7Preview:"));
-            components.add(LEGACY_SERIALIZER.deserialize("&f" + message.replace("%player%", "Player").replace("%displayname%", "Player")));
+            components.add(deserializeNonItalic("&7Preview:"));
+            components.add(deserializeNonItalic("&f" + message.replace("%player%", "Player").replace("%displayname%", "Player")));
         }
         if (selected) {
             if (!components.isEmpty()) {
-                components.add(Component.empty());
+                components.add(EMPTY_LINE);
             }
-            components.add(LEGACY_SERIALIZER.deserialize("&aCurrently selected"));
-        }
-        if (!permission.isEmpty()) {
-            if (!components.isEmpty()) {
-                components.add(Component.empty());
-            }
-            components.add(LEGACY_SERIALIZER.deserialize("&7Permission: &f" + permission.toLowerCase(Locale.ROOT)));
+            components.add(deserializeNonItalic("&aCurrently selected"));
         }
         return components;
     }
@@ -96,6 +91,10 @@ public class MessageOption {
         String formatted = message
                 .replace("%player%", player.getName())
                 .replace("%displayname%", player.getDisplayName());
-        return LEGACY_SERIALIZER.deserialize(formatted);
+        return deserializeNonItalic(formatted);
+    }
+
+    private Component deserializeNonItalic(String input) {
+        return LEGACY_SERIALIZER.deserialize(input).decoration(TextDecoration.ITALIC, false);
     }
 }
