@@ -5,6 +5,8 @@ import me.minimize.NexoJoin.MessageOption;
 import me.minimize.NexoJoin.MessageType;
 import me.minimize.NexoJoin.NexoJoinPlugin;
 import me.minimize.NexoJoin.PlayerDataManager;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.TextDecoration;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -197,9 +199,9 @@ public class MenuService {
 
         ItemStack item = new ItemStack(material);
         ItemMeta meta = item.getItemMeta();
-        meta.displayName(LEGACY_SERIALIZER.deserialize(name));
+        meta.displayName(deserializeNonItalic(name));
         if (lore != null && !lore.isEmpty()) {
-            meta.lore(lore.stream().map(LEGACY_SERIALIZER::deserialize).toList());
+            meta.lore(lore.stream().map(this::deserializeNonItalic).toList());
         }
         item.setItemMeta(meta);
         return item;
@@ -229,9 +231,9 @@ public class MenuService {
 
         ItemStack item = new ItemStack(material);
         ItemMeta meta = item.getItemMeta();
-        meta.displayName(LEGACY_SERIALIZER.deserialize(name));
+        meta.displayName(deserializeNonItalic(name));
         if (!lore.isEmpty()) {
-            meta.lore(lore.stream().map(LEGACY_SERIALIZER::deserialize).toList());
+            meta.lore(lore.stream().map(this::deserializeNonItalic).toList());
         }
         item.setItemMeta(meta);
         return item;
@@ -261,9 +263,9 @@ public class MenuService {
 
         ItemStack item = new ItemStack(material);
         ItemMeta meta = item.getItemMeta();
-        meta.displayName(LEGACY_SERIALIZER.deserialize(name));
+        meta.displayName(deserializeNonItalic(name));
         if (lore != null && !lore.isEmpty()) {
-            meta.lore(lore.stream().map(LEGACY_SERIALIZER::deserialize).toList());
+            meta.lore(lore.stream().map(this::deserializeNonItalic).toList());
         }
         item.setItemMeta(meta);
         return item;
@@ -273,6 +275,10 @@ public class MenuService {
         ItemMeta meta = item.getItemMeta();
         meta.getPersistentDataContainer().set(actionKey, PersistentDataType.STRING, action);
         item.setItemMeta(meta);
+    }
+
+    private Component deserializeNonItalic(String input) {
+        return LEGACY_SERIALIZER.deserialize(input).decoration(TextDecoration.ITALIC, false);
     }
 
     private String getString(ConfigurationSection section, String path, String def) {
